@@ -1,5 +1,7 @@
 //create an empty array called balls
 let balls = [];
+let ballhits = 0
+
 
 //create a variable to hold your avatar
 let me;
@@ -15,12 +17,13 @@ function setup() {
 
 function draw(){
 	background(220);
-
+  hits="You got smacked by " + ballhits + " balls"
+  text(hits, 30, 30)
   me.drawMe();
   me.moveMe();
 
   if (frameCount % 25 == 0) {
-      let  b = new Ball(width, random(0,height), -3);
+      let  b = new Ball(width, random(0,height), random(-10, 5));
       balls.push(b);
       console.log(balls); //print the balls array to the console
     }
@@ -30,7 +33,10 @@ function draw(){
 	 	      balls[i].drawBall();
        	  balls[i].moveBall();
         	balls[i].bounceBall();
+
+
 	  }
+
 
 }
 
@@ -47,7 +53,7 @@ class Avatar {
     		stroke("green");
         strokeWeight(3);
     		fill("blue");
-		    ellipse(this.x,this.y,20,20);
+		    ellipse(this.x,this.y,40,40);
         line(this.x,this.y, this.x, this.y+40);
         line(this.x, this.y+40, this.x-20, this.y+60);
         line(this.x, this.y+40, this.x+10, this.y+50);
@@ -99,8 +105,9 @@ class Ball {
 
 	//if the ball hits the person, change the speed value to negative (send it in the opposite direction)
   	bounceBall(){
-    		if (this.x >= me.x-15 && this.x <= me.x+15 && this.y > me.y-40 && this.y < me.y+40){
+    		if (this.x >= me.x-20 && this.x <= me.x+20 && this.y > me.y-60 && this.y < me.y+50){
       			this.speed = -this.speed;
+            ballhits = ballhits+1
     		}
   	}
 
